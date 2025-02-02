@@ -1,13 +1,18 @@
-FROM python:3.8
-
+FROM ubuntu:20.04
+RUN apt-get update -y
+COPY . /app
 WORKDIR /app
-
-# Copy required files into the container
-COPY requirements.txt /app/
-COPY app.py /app/
-
-# Install dependencies
+RUN apt-get install -y python3-pip mysql-client
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+EXPOSE 8080
+ENTRYPOINT ["python3", "app.py"]
 
-# Run Flask application
-CMD ["python", "app.py"]
+
+
+
+## docker run -d -e MYSQL_ROOT_PASSWORD=pw  my_db
+
+## docker run -d --name blue -p 8081:8080  -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD -e DATABASE=$DATABASE -e APP_COLOR=$APP_COLOR8081 my_app
+## docker run -d --name pink -p 8082:8080  -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD -e DATABASE=$DATABASE -e APP_COLOR=$APP_COLOR8082 my_app
+## docker run -d --name lime -p 8083:8080  -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD -e DATABASE=$DATABASE -e APP_COLOR=$APP_COLOR8083 my_app
