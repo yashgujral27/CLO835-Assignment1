@@ -46,7 +46,7 @@ resource "aws_security_group" "web_sg" {
 resource "aws_instance" "webserver" {
   ami                    = "ami-032ae1bccc5be78ca"
   instance_type          = "t2.micro"
-  key_name               = "projectKey"
+  key_name               = "projectkey"
   vpc_security_group_ids = [aws_security_group.web_sg.id]
   user_data              = file("${path.module}/userData.sh")
 
