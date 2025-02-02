@@ -11,14 +11,14 @@ ENTRYPOINT ["python3", "app.py"]
 
 
 
-## export DBHOST=172.18.0.2
-## export DBPORT=3306
-## export DBUSER=root
-## export DATABASE=employees
-## export DBPWD=pw
-## export APP_COLOR8081=blue
-## export APP_COLOR8082=pink
-## export APP_COLOR8083=lime
+# export DBHOST=172.18.0.2
+# export DBPORT=3306
+# export DBUSER=root
+# export DATABASE=employees
+# export DBPWD=pw
+# export APP_COLOR8081=blue
+# export APP_COLOR8082=pink
+# export APP_COLOR8083=lime
 
 ## docker run -d --name Database -e MYSQL_ROOT_PASSWORD=pw my_db
 
