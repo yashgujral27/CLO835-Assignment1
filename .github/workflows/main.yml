@@ -34,7 +34,7 @@ jobs:
         cd Docker/
         ls -ltra
         # Docker build command
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile-mysql .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f mysql/Dockerfile_mysql .
         sleep 5
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
