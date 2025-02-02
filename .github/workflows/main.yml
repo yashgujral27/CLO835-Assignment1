@@ -1,7 +1,6 @@
 name: Deploy to ECR
-# updated ECR Repo week3
 on: 
-  push:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -26,20 +25,28 @@ jobs:
         AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
         AWS_REGION: us-east-1
 
-    - name: Build, test, tag, and push image to Amazon ECR
+    - name: Build, test, tag, and push image to Amazon ECR (MYSQL)
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: clo835-week3
+        ECR_REPOSITORY: mysql-repo
         IMAGE_TAG: v0.1
       run: |
-        cd Chapter02/kubia/
+        cd Docker/
+        ls -ltra
+        # Docker build command
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile-mysql .
+        sleep 5
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Build, test, tag, and push image to Amazon ECR (MyAPP)
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: webapp-repo
+        IMAGE_TAG: v0.1
+      run: |
+        cd Docker/
         ls -ltra
         # Docker build command
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        # Unit test
-        docker run -d -p 80:8080 --name nodeapp $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker ps
-        echo "Pause for 10 seconds to let container start"
-        sleep 10
-        curl localhost -vvv
+        sleep 5
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
