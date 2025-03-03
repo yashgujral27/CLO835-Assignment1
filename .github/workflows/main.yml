@@ -1,4 +1,4 @@
-name: Deploy Image to ECR 
+name: Deploy Image to ECR  # we are deploying images to ecr
 on: 
   pull_request:
     branches: [ main ]
